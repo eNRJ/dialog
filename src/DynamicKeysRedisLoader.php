@@ -6,13 +6,19 @@ namespace App\Loader;
 
 use Bookeen\ETLWorkflow\Context\ContextInterface;
 
-class DynamicKeyRedisLoader extends RedisLoader
+class DynamicKeyRedisLoader
 {
     protected array $redisKeyPrefixes = [];
 
     protected array $redisKeySuffixes = [];
 
     protected array $dynamicVarsName = [];
+
+    public function __construct(Client $redis, LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+        $this->redis = $redis;
+    }
 
     public function setRedisKeySuffixes(array|string $redisKeySuffixes): void
     {
